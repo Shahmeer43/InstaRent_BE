@@ -1,3 +1,4 @@
+// this is for postgreSQL DB for raw queries
 const { Pool } = require("pg");
 
 const pool = new Pool({
