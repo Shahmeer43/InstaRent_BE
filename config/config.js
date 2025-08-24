@@ -6,6 +6,7 @@ const dbConfig = {
     host: process.env.DB_HOST,
     username: process.env.DB_USER,
     database: process.env.DB_NAME,
+    timezone: process.env.TIMEZONE,
     password: process.env.DB_PASSWORD,
   },
   staging: {
@@ -13,6 +14,7 @@ const dbConfig = {
     host: process.env.DB_HOST,
     username: process.env.DB_USER,
     database: process.env.DB_NAME,
+    timezone: process.env.TIMEZONE,
     password: process.env.DB_PASSWORD,
   },
   production: {
@@ -20,6 +22,7 @@ const dbConfig = {
     host: process.env.DB_HOST,
     username: process.env.DB_USER,
     database: process.env.DB_NAME,
+    timezone: process.env.TIMEZONE,
     password: process.env.DB_PASSWORD,
   },
 };
