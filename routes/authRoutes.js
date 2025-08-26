@@ -1,15 +1,12 @@
 const express = require("express");
-const schemas = require("../schemas");
-const controller = require("../controllers");
-const constants = require("../shared/constants");
-const middlewares = require("../shared/middlewares");
+const { signUp } = require("../controllers");
+const { signupSchema } = require("../schemas");
+const { validateRequest } = require("../shared/middlewares");
+const { endPointConstants } = require("../shared/constants");
 
 const router = express.Router();
 
-const { signUp } = controller;
-const { signupSchema } = schemas;
-const { validateRequest } = middlewares;
-const { auth } = constants.endPointConstants;
+const { auth } = endPointConstants;
 
 router.post(auth.signUp, validateRequest(signupSchema), signUp);
 
