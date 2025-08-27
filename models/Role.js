@@ -25,5 +25,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
+  Role.associate = (models) => {
+    Role.belongsToMany(models.User, {
+      through: "user_roles",
+      foreignKey: "roleId",
+    });
+  };
+
   return Role;
 };
