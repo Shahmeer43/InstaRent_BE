@@ -6,7 +6,9 @@ const { responseMessages } = require("../shared/constants");
 
 const {
   INVALID_ROLE,
+  INVALID_TOKEN,
   USER_NOT_FOUND,
+  TOKEN_NOT_FOUND,
   USER_ALREADY_EXIST,
   INVALID_CREDENTIALS,
   USER_REGISTERED_SUCCESSFULLY,
@@ -54,7 +56,7 @@ exports.logIn = async (req, res) => {
       { id: user.id },
       process.env.JWT_ACCESS_SECRET_KEY,
       {
-        expiresIn: "5m",
+        expiresIn: "15m",
       }
     );
 
@@ -74,5 +76,29 @@ exports.logIn = async (req, res) => {
     res.status(200).json({ accessToken });
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+exports.refreshAccessToken = async (req, res) => {
+  if (!req.cookies.refreshToken)
+    return res.status(401).json({ message: TOKEN_NOT_FOUND });
+
+  try {
+    const decoded = jwt.verify(
+      req.cookies.refreshToken,
+      process.env.JWT_REFRESH_SECRET_KEY
+    );
+
+    const newAccessToken = jwt.sign(
+      { id: decoded.id },
+      process.env.JWT_ACCESS_SECRET_KEY,
+      { expiresIn: "15m" }
+    );
+
+    res.status(200).json({ accessToken: newAccessToken });
+  } catch (err) {
+    res.status(403).json({
+      message: INVALID_TOKEN,
+    });
   }
 };
