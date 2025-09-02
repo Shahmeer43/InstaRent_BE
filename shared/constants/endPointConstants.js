@@ -6,6 +6,7 @@ const endPointConstants = {
   auth: {
     baseRoute: `/${API}/${VERSION}/${AUTH}`,
     logIn: "/login",
+    token: "/token",
     signUp: "/signup",
   },
 };
